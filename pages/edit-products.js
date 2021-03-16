@@ -10,12 +10,12 @@ import {
   PageActions,
   TextField,
   Toast,
-} from "@shopify/polaris";
+} from '@shopify/polaris';
 
-import { Mutation } from "react-apollo";
-import React from "react";
-import gql from "graphql-tag";
-import store from "store-js";
+import { Mutation } from 'react-apollo';
+import React from 'react';
+import gql from 'graphql-tag';
+import store from 'store-js';
 
 const UPDATE_PRICE = gql`
   mutation productVariantUpdate($input: ProductVariantInput!) {
@@ -33,9 +33,9 @@ const UPDATE_PRICE = gql`
 
 class EditProduct extends React.Component {
   state = {
-    discount: "",
-    price: "",
-    variantId: "",
+    discount: '',
+    price: '',
+    variantId: '',
     showToast: false,
   };
 
@@ -45,9 +45,12 @@ class EditProduct extends React.Component {
 
   render() {
     const { name, price, discount, variantId } = this.state;
+
     return (
-      <Mutation mutation={UPDATE_PRICE}>
-        {(handleSubmit, { error, data }) => {
+      <Mutation
+        mutation={UPDATE_PRICE}
+      >
+        {(handleSubmit, {error, data}) => {
           const showError = error && (
             <Banner status="critical">{error.message}</Banner>
           );
@@ -57,12 +60,15 @@ class EditProduct extends React.Component {
               onDismiss={() => this.setState({ showToast: false })}
             />
           );
+
           return (
             <Frame>
               <Page>
                 <Layout>
                   {showToast}
-                  <Layout.Section>{showError}</Layout.Section>
+                  <Layout.Section>
+                    {showError}
+                  </Layout.Section>
                   <Layout.Section>
                     <DisplayText size="large">{name}</DisplayText>
                     <Form>
@@ -79,18 +85,20 @@ class EditProduct extends React.Component {
                             <TextField
                               prefix="$"
                               value={discount}
-                              onChange={this.handleChange("discount")}
+                              onChange={this.handleChange('discount')}
                               label="Discounted price"
                               type="discount"
                             />
                           </FormLayout.Group>
-                          <p>This sale price will expire in two weeks</p>
+                          <p>
+                            This sale price will expire in two weeks
+                          </p>
                         </FormLayout>
                       </Card>
                       <PageActions
                         primaryAction={[
                           {
-                            content: "Save",
+                            content: 'Save',
                             onAction: () => {
                               const productVariableInput = {
                                 id: variantId,
@@ -99,13 +107,13 @@ class EditProduct extends React.Component {
                               handleSubmit({
                                 variables: { input: productVariableInput },
                               });
-                            },
-                          },
+                            }
+                          }
                         ]}
                         secondaryActions={[
                           {
-                            content: "Remove discount",
-                          },
+                            content: 'Remove discount'
+                          }
                         ]}
                       />
                     </Form>
@@ -124,7 +132,7 @@ class EditProduct extends React.Component {
   };
 
   itemToBeConsumed = () => {
-    const item = store.get("item");
+    const item = store.get('item');
     const price = item.variants.edges[0].node.price;
     const variantId = item.variants.edges[0].node.id;
     const discounter = price * 0.1;
