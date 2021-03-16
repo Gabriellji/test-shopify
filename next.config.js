@@ -2,7 +2,7 @@ require("dotenv").config();
 const webpack = require('webpack');
 const { default: Shopify } = require('@shopify/shopify-api');
 
-const apiKey =  JSON.stringify(Shopify.Context.API_KEY);
+const apiKey =  JSON.stringify(process.env.SHOPIFY_API_KEY);
 
 module.exports = {
   webpack: (config) => {
