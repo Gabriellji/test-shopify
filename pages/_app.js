@@ -1,12 +1,35 @@
-import '@shopify/polaris/dist/styles.css';
+import "@shopify/polaris/dist/styles.css";
 
-import App from 'next/app';
-import { AppProvider } from '@shopify/polaris';
-import ClientRouter from '../components/ClientRouter';
-import Head from 'next/head';
-import { Provider } from '@shopify/app-bridge-react';
-import React from 'react';
-import translations from '@shopify/polaris/locales/en.json';
+import { Context, Provider } from "@shopify/app-bridge-react";
+
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "react-apollo";
+import App from "next/app";
+import { AppProvider } from "@shopify/polaris";
+import ClientRouter from "../components/ClientRouter";
+import Head from "next/head";
+import React from "react";
+import { authenticatedFetch } from "@shopify/app-bridge-utils";
+import translations from "@shopify/polaris/locales/en.json";
+
+class MyProvider extends React.Component {
+  static contextType = Context;
+
+  render() {
+    const app = this.context;
+
+    const client = new ApolloClient({
+      fetch: authenticatedFetch(app),
+      fetchOptions: {
+        credentials: "include",
+      },
+    });
+
+    return (
+      <ApolloProvider client={client}>{this.props.children}</ApolloProvider>
+    );
+  }
+}
 
 class MyApp extends App {
   render() {
@@ -23,7 +46,9 @@ class MyApp extends App {
         <Provider config={config}>
           <ClientRouter />
           <AppProvider i18n={translations}>
-            <Component {...pageProps} />
+            <MyProvider>
+              <Component {...pageProps} />
+            </MyProvider>
           </AppProvider>
         </Provider>
       </React.Fragment>
@@ -34,7 +59,7 @@ class MyApp extends App {
 MyApp.getInitialProps = async ({ ctx }) => {
   return {
     shopOrigin: ctx.query.shop,
-  }
-}
+  };
+};
 
 export default MyApp;
