@@ -2,12 +2,11 @@ import '@shopify/polaris/dist/styles.css';
 
 import App from 'next/app';
 import { AppProvider } from '@shopify/polaris';
+import ClientRouter from '../components/ClientRouter';
 import Head from 'next/head';
-//import { Provider } from '@shopify/app-bridge-react';
+import { Provider } from '@shopify/app-bridge-react';
 import React from 'react';
 import translations from '@shopify/polaris/locales/en.json';
-
-//import ClientRouter from '../components/ClientRouter';
 
 class MyApp extends App {
   render() {
@@ -20,12 +19,12 @@ class MyApp extends App {
           <title>Sample App</title>
           <meta charSet="utf-8" />
         </Head>
-        {/* <Provider config={config}> */}
-          {/* <ClientRouter /> */}
+        <Provider config={config}>
+          <ClientRouter />
           <AppProvider i18n={translations}>
             <Component {...pageProps} />
           </AppProvider>
-        {/* </Provider> */}
+        </Provider>
       </React.Fragment>
     );
   }
