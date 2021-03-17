@@ -23,6 +23,6 @@ const db = {}
 
 db.Sequelize = Sequelize
 db.connector = connector
-//db.user = require('../models/user.model')(Sequelize, connector)
+db.product = require('../models/product.model')(Sequelize, connector)
 
 module.exports = db

@@ -1,0 +1,44 @@
+const express = require("express");
+const router = express.Router();
+const db = require("../db/db.client");
+const Product = db.product;
+
+// GET all
+router.get("/", async (req, res) => {
+  try {
+    const products = await Product.findAll();
+    res.json(products);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+
+
+//POST create one
+router.post("/", async (req, res) => {
+  try {
+    const {
+      title,
+      body_html,
+      vendor,
+      product_type,
+      handle,
+      tags
+    } = req.body;
+
+    const product = await Product.create({ ...req.body });
+    res.status(201).json(product);
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).send("Server Error");
+  }
+});
+
+router.put("/", async (req, res) => {
+
+})
+
+
+module.exports = router;
