@@ -41,6 +41,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+//PUT update one
 router.put("/:id", async (req, res) => {
   try {
     const product = await Product.update(
@@ -56,12 +57,30 @@ router.put("/:id", async (req, res) => {
     }
 
     const updatedProduct = await Product.findByPk(req.params.id);
-    console.log(updatedProduct, "Yooooo")
     res.status(200).json(updatedProduct);
   } catch (err) {
     console.error(err.message);
     return res.status(500).send("Server Error");
   }
 });
+
+// DELETE one
+router.delete("/:id", async (req, res) => {
+    try {
+        const product = await Product.destroy({
+            where: {
+              id: req.params.id,
+            }
+          });
+          if (!product) {
+            return res.status(204).json({ msg: "No content..." });
+        }
+        res.status(200).json({ msg: "Deleted successfully" });
+
+    } catch(err) {
+        console.error(err.message);
+        return res.status(500).send("Server Error");
+    }
+})
 
 module.exports = router;
