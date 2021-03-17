@@ -36,11 +36,34 @@ app.prepare().then(() => {
       async afterAuth(ctx) {
         const { shop, scope, accessToken } = ctx.state.shopify;
         ACTIVE_SHOPIFY_SHOPS[shop] = scope;
+
+        const registration = await Shopify.Webhooks.Registry.register({
+          shop,
+          accessToken,
+          path: "/webhooks",
+          topic: "APP_UNINSTALLED",
+          apiVersion: ApiVersion.October20,
+          webhookHandler: (_topic, shop, _body) => {
+            console.log("App uninstalled");
+            delete ACTIVE_SHOPIFY_SHOPS[shop];
+          },
+        });
+
+        if (registration.success) {
+          console.log("Successfully registered webhook!");
+        } else {
+          console.log("Failed to register webhook", registration.result);
+        }
+
         const returnUrl = `https://${Shopify.Context.HOST_NAME}?shop=${shop}`;
-        const subscriptionUrl = await getSubscriptionUrl(accessToken, shop, returnUrl);
+        const subscriptionUrl = await getSubscriptionUrl(
+          accessToken,
+          shop,
+          returnUrl
+        );
         ctx.redirect(subscriptionUrl);
       },
-    }),
+    })
   );
 
   router.post("/graphql", verifyRequest(), async (ctx, next) => {
