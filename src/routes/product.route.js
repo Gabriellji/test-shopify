@@ -14,32 +14,24 @@ router.get("/", async (req, res) => {
   }
 });
 
+// GET by id
 router.get("/:id", async (req, res) => {
-    try {
-        const product = await Product.findByPk(req.params.id)
-        if (!product) {
-            return res
-                .status(404)
-                .json({ msg: 'Product not found' })
-        }
-        res.json(product)
-    } catch(err) {
-        console.error(err.message)
-        res.status(500).send('Server Error')
+  try {
+    const product = await Product.findByPk(req.params.id);
+    if (!product) {
+      return res.status(404).json({ msg: "Product not found" });
     }
-})
+    res.json(product);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 //POST create one
 router.post("/", async (req, res) => {
   try {
-    const {
-      title,
-      body_html,
-      vendor,
-      product_type,
-      handle,
-      tags
-    } = req.body;
+    const { title, body_html, vendor, product_type, handle, tags } = req.body;
 
     const product = await Product.create({ ...req.body });
     res.status(201).json(product);
@@ -49,9 +41,27 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+router.put("/:id", async (req, res) => {
+  try {
+    const product = await Product.update(
+      { ...req.body },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+    if (!product) {
+        return res.status(204).json({ msg: "No content..." });
+    }
 
-})
-
+    const updatedProduct = await Product.findByPk(req.params.id);
+    console.log(updatedProduct, "Yooooo")
+    res.status(200).json(updatedProduct);
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).send("Server Error");
+  }
+});
 
 module.exports = router;
