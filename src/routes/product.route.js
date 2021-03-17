@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require("../db/db.client");
 const Product = db.product;
 
+// Public
 // GET all
 router.get("/", async (req, res) => {
   try {
@@ -14,6 +15,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Public
 // GET by id
 router.get("/:id", async (req, res) => {
   try {
@@ -28,7 +30,8 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-//POST create one
+// Public
+// POST create one
 router.post("/", async (req, res) => {
   try {
     const { title, body_html, vendor, product_type, handle, tags } = req.body;
@@ -40,7 +43,8 @@ router.post("/", async (req, res) => {
   }
 });
 
-//PUT update one
+// Public
+// PUT update one
 router.put("/:id", async (req, res) => {
   try {
     const product = await Product.update(
@@ -63,6 +67,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// Public
 // DELETE one
 router.delete("/:id", async (req, res) => {
     try {
