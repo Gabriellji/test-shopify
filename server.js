@@ -75,6 +75,12 @@ app.prepare().then(() => {
     ctx.respond = false;
     ctx.res.statusCode = 200;
   };
+
+  router.post('/webhooks', async (ctx) => {
+    await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);
+    console.log(`Webhook processed with status code 200`);
+  });
+
   router.get("/", async (ctx) => {
     const shop = ctx.query.shop;
     if (ACTIVE_SHOPIFY_SHOPS[shop] === undefined) {
@@ -83,6 +89,7 @@ app.prepare().then(() => {
       await handleRequest(ctx);
     }
   });
+  
   router.get("(/_next/static/.*)", handleRequest);
   router.get("/_next/webpack-hmr", handleRequest);
   router.get("(.*)", verifyRequest(), handleRequest);
