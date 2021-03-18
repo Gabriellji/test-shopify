@@ -1,4 +1,4 @@
-const { default: Shopify } = require('@shopify/shopify-api');
+const { default: Shopify } = require("@shopify/shopify-api");
 
 const getSubscriptionUrl = async (accessToken, shop, returnUrl) => {
   const query = `mutation {

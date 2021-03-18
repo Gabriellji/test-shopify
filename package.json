@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node server.js",
+    "dev": "nodemon src/server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js"
   },
@@ -18,15 +18,20 @@
     "@shopify/koa-shopify-auth": "^4.0.2",
     "@shopify/polaris": "^6.1.0",
     "apollo-boost": "^0.4.9",
+    "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "graphql": "^15.5.0",
     "isomorphic-fetch": "^3.0.0",
     "koa": "^2.13.1",
     "koa-router": "^8.0.8",
     "next": "^10.0.8",
+    "nodemon": "^2.0.7",
+    "pg": "^8.5.1",
     "react": "^17.0.1",
     "react-apollo": "^3.1.5",
     "react-dom": "^17.0.1",
+    "sequelize": "^6.5.1",
     "store-js": "^2.0.4",
     "webpack": "^4.46.0"
   }
