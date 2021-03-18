@@ -15,7 +15,13 @@ module.exports = (sequelize, DataTypes) => {
   };
   Images.init({
     id: DataTypes.INTEGER,
-    product_id: DataTypes.INTEGER,
+    product_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Product,
+        key: "id"
+      }
+    },
     position: DataTypes.INTEGER,
     created_at: DataTypes.DATE,
     updated_at: DataTypes.DATE,
@@ -23,7 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     width: DataTypes.INTEGER,
     height: DataTypes.INTEGER,
     src: DataTypes.STRING,
-    vatiant_ids: DataTypes.ENUM,
+    vatiant_ids: {
+      values: []
+    },
     admin_graphql_api_id: DataTypes.STRING
   }, {
     sequelize,

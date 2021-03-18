@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const product = require('./product');
 module.exports = (sequelize, DataTypes) => {
   class Variants extends Model {
     /**
@@ -15,24 +16,51 @@ module.exports = (sequelize, DataTypes) => {
   };
   Variants.init({
     id: DataTypes.INTEGER,
-    product_id: DataTypes.INTEGER,
+    product_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Product,
+        key: "id"
+      }
+    },
     title: DataTypes.STRING,
     price: DataTypes.INTEGER,
     sku: DataTypes.STRING,
     position: DataTypes.INTEGER,
     inventory_policy: DataTypes.STRING,
-    compare_at_price: DataTypes.INTEGER,
+    compare_at_price: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
     fulfillment_service: DataTypes.STRING,
     inventory_management: DataTypes.STRING,
-    option1: DataTypes.STRING,
-    option2: DataTypes.STRING,
-    option3: DataTypes.STRING,
+    option1: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    option2: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    option3: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     created_at: DataTypes.DATE,
     updated_at: DataTypes.DATE,
-    taxable: DataTypes.BOOLEAN,
-    barcode: DataTypes.INTEGER,
+    taxable: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true
+    },
+    barcode: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
     grams: DataTypes.INTEGER,
-    image_id: DataTypes.INTEGER,
+    image_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
     weight: DataTypes.INTEGER,
     weight_unit: DataTypes.STRING,
     inventory_item_id: DataTypes.INTEGER,
