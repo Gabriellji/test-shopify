@@ -3,7 +3,7 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Images extends Model {
     static associate(models) {
-      Images.belongsTo(models.Product, {
+      Images.belongsTo(models.Products, {
         foreignKey: "product_id",
         as: "product",
       });
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       product_id: {
         type: DataTypes.INTEGER,
         references: {
-          model: "Product",
+          model: "Products",
           key: "id",
         },
       },
