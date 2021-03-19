@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "product_id",
         as: "product",
       });
+      Images.hasOne(models.Variant_ids, { onDelete: "cascade" });
     }
   }
   Images.init(
