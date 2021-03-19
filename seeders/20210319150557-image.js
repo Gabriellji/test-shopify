@@ -8,8 +8,8 @@ module.exports = {
       imageArray.push({
         id: element.image.id,
         product_id: element.image.product_id,
-        position: element.image,
-        created_at: element.image.position,
+        position: element.image.position,
+        created_at: element.image.created_at,
         updated_at: element.image.updated_at,
         alt: element.image.alt,
         width: element.image.width,

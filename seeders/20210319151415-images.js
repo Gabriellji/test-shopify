@@ -15,7 +15,7 @@ module.exports = {
           width: img["width"],
           height: img["height"],
           src: img["src"],
-          variant_ids: [...img.variant_ids],
+          // variant_ids: [...img.variant_ids],
           admin_graphql_api_id: img["admin_graphql_api_id"],
         });
       });

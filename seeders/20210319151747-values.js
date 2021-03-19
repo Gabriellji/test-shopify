@@ -8,7 +8,6 @@ module.exports = {
       valuesArray.push({
         id: element.options.values.id,
         options_id: element.options.values.options_id,
-        values: element.options.values
       })
     })
     return await queryInterface.bulkInsert("Values", valuesArray);

@@ -3,11 +3,11 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Image extends Model {
     static associate(models) {
-      Image.belongsTo(models.Products, {
-        foreignKey: "product_id",
-        as: "product",
-      });
-      Image.hasOne(models.Variant_ids, { onDelete: "cascade" });
+      // Image.belongsTo(models.Products, {
+      //   foreignKey: "product_id",
+      //   as: "product",
+      // });
+      // Image.hasOne(models.Variant_ids, { onDelete: "cascade" });
     }
   }
   Image.init(
@@ -15,16 +15,14 @@ module.exports = (sequelize, DataTypes) => {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
-        unique: true,
       },
-      product_id: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: "Products",
-          key: "id",
-        },
-      },
+      // product_id: {
+      //   type: DataTypes.INTEGER,
+      //   references: {
+      //     model: "Products",
+      //     key: "id",
+      //   },
+      // },
       position: DataTypes.INTEGER,
       created_at: {
         allowNull: false,
@@ -38,13 +36,13 @@ module.exports = (sequelize, DataTypes) => {
       width: DataTypes.INTEGER,
       height: DataTypes.INTEGER,
       src: DataTypes.STRING,
-      variant_ids: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: "Variant_ids",
-          key: "id",
-        },
-      },
+      // variant_ids: {
+      //   type: DataTypes.INTEGER,
+      //   references: {
+      //     model: "Variant_ids",
+      //     key: "id",
+      //   },
+      // },
       admin_graphql_api_id: DataTypes.STRING,
     },
     {

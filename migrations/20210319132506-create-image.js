@@ -1,9 +1,11 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.sequelize.query("SELECT * FROM Image")
+    return await queryInterface.sequelize.query("SELECT * FROM 'Image'", {
+      type: queryInterface.sequelize.QueryTypes.SELECT
+    })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.sequelize.query("DROP TABLE Image");
+    return await queryInterface.sequelize.query("DROP TABLE Image");
   }
 };

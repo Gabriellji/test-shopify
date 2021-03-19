@@ -11,7 +11,7 @@ module.exports = {
           product_id: option["product_id"],
           name: option["name"],
           position: option["position"],
-          values: [...option.values],
+          // values: [...option.values],
         });
       });
     });
