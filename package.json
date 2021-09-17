@@ -34,5 +34,8 @@
     "sequelize": "^6.5.1",
     "store-js": "^2.0.4",
     "webpack": "^4.46.0"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
   }
 }
